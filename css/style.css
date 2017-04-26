@@ -1,0 +1,40 @@
+body {
+  background-color: #9acc99; }
+
+.game {
+  max-width: 1024px;
+  margin: 0 auto; }
+
+.game-field {
+  margin: 0 auto;
+  width: 350px;
+  height: 350px;
+  border: 1px solid #000;
+  background-color: #9acc99; }
+
+button {
+  float: right;
+  background-color: #9acc99;
+  color: #000;
+  border: 1px solid #000;
+  bottom: 0;
+  height: 30px;
+  font-size: 14px;
+  width: 100px;
+  margin-top: 10px;
+  cursor: pointer; }
+
+button:hover {
+  background-color: #94bf85; }
+
+button:disabled {
+  background-color: #487054; }
+
+.control {
+  width: 350px;
+  margin: 0 auto; }
+  .control span {
+    float: left;
+    display: block;
+    margin: 20px 0 5px;
+    text-transform: uppercase; }

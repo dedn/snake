@@ -1,0 +1,19 @@
+{
+  "name": "Snake",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "dedn",
+  "license": "",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-connect": "^3.2.2",
+    "gulp-include": "^2.1.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-sass": "^2.2.0",
+    "gulp-sass-lint": "^1.3.2",
+    "gulp-html-lint": "0.0.1",
+    "javascript-precommit": "0.0.8"
+  }
+}
