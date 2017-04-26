@@ -43,6 +43,3 @@
   };
 })(window, document, drawModule);
 
-/**
- * Starts the game
- */

@@ -11,6 +11,7 @@ var snakecolor = 'black';
 var snakeborder = '#9acc99';
 var eatcolor = '#9acc99';
 var eatborder = 'black';
+var text_color = 'black';
 
 var drawModule = function () {
 
@@ -30,20 +31,20 @@ var drawModule = function () {
 
   scoreText = function scoreText() {
     var score_text = 'Score:' + score;
-    ctx.fillStyle = 'black';
+    ctx.fillStyle = text_color;
     ctx.fillText(score_text, 145, h - 5);
   };
 
   gameOver = function gameOver() {
     var score_text = 'You lose, try again';
-    ctx.fillStyle = 'black';
+    ctx.fillStyle = text_color;
     ctx.font = "14px Arial";
     ctx.fillText(score_text, 120, h - 200);
   };
 
   restartText = function restartText() {
-    var score_text = 'Already finished? Come on again.';
-    ctx.fillStyle = 'black';
+    var score_text = 'Will we start again? Are you sure?';
+    ctx.fillStyle = text_color;
     ctx.font = "14px Arial";
     ctx.fillText(score_text, 70, h - 200);
   };
@@ -60,9 +61,9 @@ var drawModule = function () {
   };
 
   var paint = function paint() {
-    ctx.fillStyle = '#9acc99';
+    ctx.fillStyle = snakeborder;
     ctx.fillRect(0, 0, w, h);
-    ctx.strokeStyle = 'black';
+    ctx.strokeStyle = snakecolor;
     ctx.strokeRect(0, 0, w, h);
 
     btn.setAttribute('disabled', true);
@@ -86,7 +87,6 @@ var drawModule = function () {
       ctx.clearRect(0, 0, w, h);
       gameloop = clearInterval(gameloop);
       gameOver();
-
       return;
     }
 
