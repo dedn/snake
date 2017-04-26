@@ -1,5 +1,12 @@
+$background: #9acc99;
+$border: #000;
+$btn-background: #9acc99;
+$btn-background-hover: #94bf85;
+$btn-background-disabled: #94bf85;
+$btn-text: #000;
+
 body {
-  background-color: #9acc99;
+  background-color: $background;
 }
 
 .game {
@@ -11,29 +18,32 @@ body {
   margin: 0 auto;
   width: 350px;
   height: 350px;
-  border: 1px solid #000;
-  background-color: #9acc99;
+  border: 1px solid $border;
+  background-color: $background;
 }
 
 button {
   float: right;
-  background-color: #9acc99;
-  color: #000;
-  border: 1px solid #000;
+  background-color: $btn-background;
+  color: $btn-text;
+  border: 1px solid $border;
   bottom: 0;
   height: 30px;
   font-size: 14px;
   width: 100px;
   margin-top: 10px;
   cursor: pointer;
-}
 
-button {
-  &:hover {
-    background-color: #94bf85;
+  &:last-child {
+    margin-right: 5px;
   }
+
+  &:hover {
+    background-color: $btn-background-hover;
+  }
+
   &:disabled {
-    background-color: #487054;
+    background-color: $btn-background-disabled;
   }
 }
 

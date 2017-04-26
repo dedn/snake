@@ -6,14 +6,19 @@
   "author": "dedn",
   "license": "",
   "devDependencies": {
+    "babel-preset-es2015": "^6.24.1",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
+    "gulp-babel": "^6.1.2",
     "gulp-connect": "^3.2.2",
+    "gulp-html-lint": "0.0.1",
     "gulp-include": "^2.1.0",
+    "gulp-jshint": "^2.0.4",
     "gulp-livereload": "^3.8.1",
     "gulp-sass": "^2.2.0",
     "gulp-sass-lint": "^1.3.2",
-    "gulp-html-lint": "0.0.1",
-    "javascript-precommit": "0.0.8"
+    "javascript-precommit": "0.0.8",
+    "jshint": "^2.9.4",
+    "jshint-stylish": "^2.2.1"
   }
 }

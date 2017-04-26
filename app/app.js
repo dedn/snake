@@ -1,14 +1,16 @@
-(((window, document, drawModule) => {
+(function (window, document, drawModule) {
 
-  const btn = document.getElementById('btn');
-  btn.addEventListener("click", () => { drawModule.init();});
+  var btn = document.getElementById('btn');
+  btn.addEventListener("click", function () {
+    drawModule.init();
+  });
 
-  document.onkeydown = event => {
+  document.onkeydown = function (event) {
 
     keyCode = window.event.keyCode;
     keyCode = event.keyCode;
 
-    switch(keyCode) {
+    switch (keyCode) {
 
       case 37:
         if (direction != 'right') {
@@ -39,9 +41,7 @@
         break;
     }
   };
-
-
-}))(window, document, drawModule);
+})(window, document, drawModule);
 
 /**
  * Starts the game

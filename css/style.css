@@ -23,12 +23,12 @@ button {
   width: 100px;
   margin-top: 10px;
   cursor: pointer; }
-
-button:hover {
-  background-color: #94bf85; }
-
-button:disabled {
-  background-color: #487054; }
+  button:last-child {
+    margin-right: 5px; }
+  button:hover {
+    background-color: #94bf85; }
+  button:disabled {
+    background-color: #94bf85; }
 
 .control {
   width: 350px;

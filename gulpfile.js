@@ -1,27 +1,29 @@
-'use strict';
+let gulp = require('gulp');
+let sass = require('gulp-sass');
+let livereload = require('gulp-livereload');
+let connect = require('gulp-connect');
+let autoprefixer = require('gulp-autoprefixer');
+let htmlLint = require('gulp-html-lint');
+let sassLint = require('gulp-sass-lint');
+let babel = require('gulp-babel');
+let jslint = require('gulp-jslint');
+let jshint = require('gulp-jshint');
 
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-var livereload = require('gulp-livereload');
-var connect = require('gulp-connect');
-var autoprefixer = require('gulp-autoprefixer');
-var htmlLint = require('gulp-html-lint');
-var sassLint = require('gulp-sass-lint');
 /**
  * Server connect
  */
-
-gulp.task('connect', function () {
+gulp.task('connect', () =>  {
     connect.server({
         root: '.',
         port: 1111,
         livereload: true
     });
 });
+
 /**
  * Css
  */
-gulp.task('css', function () {
+gulp.task('css', () => {
     gulp.src('css/*.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(autoprefixer({
@@ -35,12 +37,12 @@ gulp.task('css', function () {
 /**
  * JavaScript
  */
-gulp.task('js', function () {
+gulp.task('js', () => {
     gulp.src('scripts/*js')
         .pipe(connect.reload());
 });
 
-gulp.task('html', function () {
+gulp.task('html', () => {
     gulp.src('*.html')
         .pipe(connect.reload());
 });
@@ -48,7 +50,7 @@ gulp.task('html', function () {
 /**
  * Watch
  */
-gulp.task('watch', function () {
+gulp.task('watch', () => {
     gulp.watch(['css/*css'], ['css']);
     gulp.watch(['css/*scss'], ['css']);
     gulp.watch(['*html'], ['html']);
@@ -69,18 +71,14 @@ const htmlLintOptions = {
         'class-style': false,
         'id-class-style': false,
         'attr-req-value': false,
-        'attr-name-style': false,
-        'attr-bans': [
-            'align', 'background', 'bgcolor', 'border', 'frameborder',
-            'longdesc', 'marginwidth', 'marginheight', 'scrolling', 'width'
-        ]
-    }
+        'attr-name-style': false
+       }
 };
 
 /**
  * Lint for SASS files.
  */
-gulp.task('sass-lint', function () {
+gulp.task('sass-lint', () => {
     return gulp.src('css/*.scss')
         .pipe(sassLint(sassLintOptions))
         .pipe(sassLint.format())
@@ -90,11 +88,35 @@ gulp.task('sass-lint', function () {
 /**
  * Lint for HTML files.
  */
-gulp.task('html-lint', function () {
+gulp.task('html-lint', () => {
     return gulp.src('*.html')
         .pipe(htmlLint(htmlLintOptions))
         .pipe(htmlLint.format())
         .pipe(htmlLint.failOnError());
+});
+
+/**
+ * Lint for JS files.
+ */
+gulp.task('jslint', () => {
+    return gulp.src('scripts/*.js')
+      .pipe(jshint({
+          "esversion": 6
+      }))
+      .pipe(jshint.reporter('jshint-stylish'));
+});
+
+/**
+ * Babel
+ */
+gulp.task('babel', () => {
+    return gulp.src('scripts/*.js')
+      .pipe(babel({
+          presets:[
+              ['es2015', {modules: false}]
+          ]
+      }))
+      .pipe(gulp.dest('app'));
 });
 
 /**
@@ -105,7 +127,8 @@ gulp.task('default', [
     'html',
     'css',
     'js',
-    'watch'
+    'watch',
+    'babel'
 ]);
 
-gulp.task('lint', ['sass-lint', 'html-lint']);
+gulp.task('lint', ['sass-lint', 'html-lint', 'jslint']);
