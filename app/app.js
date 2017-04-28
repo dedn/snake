@@ -1,4 +1,4 @@
-(function (window, document, drawModule) {
+(function (drawModule) {
 
   var btn = document.getElementById('btn');
   btn.addEventListener("click", function () {
@@ -39,4 +39,4 @@
         break;
     }
   };
-})(window, document, drawModule);
+})(drawModule);

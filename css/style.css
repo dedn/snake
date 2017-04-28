@@ -6,11 +6,7 @@ body {
   margin: 0 auto; }
 
 .game-field {
-  margin: 0 auto;
-  width: 350px;
-  height: 350px;
-  border: 1px solid #000;
-  background-color: #9acc99; }
+  margin: 0 auto; }
 
 button {
   float: right;

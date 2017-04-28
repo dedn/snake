@@ -1,10 +1,10 @@
-(((window, document, drawModule) => {
+(((drawModule) => {
 
   const btn = document.getElementById('btn');
   btn.addEventListener("click", () => { drawModule.init();});
 
   document.onkeydown = event => {
-  let  keyCode = event.keyCode;
+  const  keyCode = event.keyCode;
 
     switch(keyCode) {
 
@@ -39,4 +39,4 @@
   };
 
 
-}))(window, document, drawModule);
+}))(drawModule);
