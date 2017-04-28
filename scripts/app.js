@@ -4,9 +4,7 @@
   btn.addEventListener("click", () => { drawModule.init();});
 
   document.onkeydown = event => {
-
-    keyCode = window.event.keyCode;
-    keyCode = event.keyCode;
+  let  keyCode = event.keyCode;
 
     switch(keyCode) {
 
@@ -42,7 +40,3 @@
 
 
 }))(window, document, drawModule);
-
-/**
- * Starts the game
- */

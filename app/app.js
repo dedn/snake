@@ -7,8 +7,7 @@
 
   document.onkeydown = function (event) {
 
-    keyCode = window.event.keyCode;
-    keyCode = event.keyCode;
+    var keyCode = event.keyCode;
 
     switch (keyCode) {
 
@@ -42,4 +41,3 @@
     }
   };
 })(window, document, drawModule);
-

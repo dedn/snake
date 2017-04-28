@@ -87,6 +87,7 @@ var drawModule = function () {
       ctx.clearRect(0, 0, w, h);
       gameloop = clearInterval(gameloop);
       gameOver();
+
       return;
     }
 
