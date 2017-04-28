@@ -15,7 +15,7 @@ let jshint = require('gulp-jshint');
 gulp.task('connect', () => {
   connect.server({
     root: '.',
-    port: 1111,
+    port: 8000,
     livereload: true
   });
 });

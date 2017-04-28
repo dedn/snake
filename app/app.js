@@ -6,7 +6,6 @@
   });
 
   document.onkeydown = function (event) {
-
     var keyCode = event.keyCode;
 
     switch (keyCode) {
