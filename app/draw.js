@@ -69,7 +69,7 @@ var drawModule = function () {
   };
 
   restartText = function restartText() {
-    var restart_text = 'Will we start again? Are you sure?';
+    var restart_text = 'You started anew';
     ctx.fillStyle = text_color;
     ctx.font = "14px Arial";
     ctx.textAlign = "center";

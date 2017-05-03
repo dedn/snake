@@ -69,7 +69,7 @@ const drawModule = ((() => {
   };
 
   restartText = () => {
-    const restart_text = 'Will we start again? Are you sure?';
+    const restart_text = 'You started anew';
     ctx.fillStyle = text_color;
     ctx.font = "14px Arial";
     ctx.textAlign = "center";
