@@ -1,33 +1,32 @@
-let width =400;
-let height =400;
+const width = 600;
+const height = 600;
 
 const canvas = document.getElementById('canvas');
 canvas.width = width;
 canvas.height = height;
 const ctx = canvas.getContext('2d');
 const snakeSize = 10;
-let w = width;
-let h = height;
-let score = 0;
-let snake;
-let food;
-let snakecolor = 'black';
-let snakeborder = '#9acc99';
-let eatcolor = '#9acc99';
-let eatborder = 'black';
-let text_color = 'black';
 
-let foodX = width/11;
-let foodY = height/11;
-
-
-
-let defaultLoopDelay = 80;
-let currentLoopDelay = defaultLoopDelay;
-let gameloop = null;
-let speedBoost = 5;
-let foodForBoost = 4;
-let foodRemainForBoost = foodForBoost;
+var w = width;
+var h = height;
+var score = 0;
+var snake;
+var food;
+var snakecolor = 'black';
+var snakeborder = '#fff';
+var eatcolor = '#fff';
+var eatborder = 'black';
+var text_color = 'black';
+var foodX = width / 11;
+var foodY = height / 11;
+var defaultLoopDelay = 80;
+var currentLoopDelay = defaultLoopDelay;
+var gameloop = null;
+var speedBoost = 10;
+var foodForBoost = 4;
+var foodRemainForBoost = foodForBoost;
+var needBoost;
+var tail;
 
 drawCanvasBoard = () => {
   ctx.strokeStyle = snakecolor;
@@ -57,7 +56,7 @@ const drawModule = ((() => {
     ctx.font = "14px Arial";
     ctx.fillStyle = text_color;
     ctx.textAlign = "center";
-    ctx.fillText(score_text, width/2, h - 10);
+    ctx.fillText(score_text, width / 2, h - 10);
   };
 
   gameOver = () => {
@@ -66,7 +65,7 @@ const drawModule = ((() => {
     ctx.font = "14px Arial";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.fillText(lose_text, width/2, height/2);
+    ctx.fillText(lose_text, width / 2, height / 2);
   };
 
   restartText = () => {
@@ -75,11 +74,11 @@ const drawModule = ((() => {
     ctx.font = "14px Arial";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.fillText(restart_text, width/2, height/2);
+    ctx.fillText(restart_text, width / 2, height / 2);
   };
 
-  const drawSnake = () => {
-    const length = 1;
+  var drawSnake = () => {
+    var length = 1;
     snake = [];
     for (let i = length - 1; i >= 0; i--) {
       snake.push(
@@ -90,7 +89,7 @@ const drawModule = ((() => {
     }
   };
 
-  const paint = () => {
+  var paint = () => {
     ctx.fillStyle = snakeborder;
     ctx.fillRect(0, 0, w, h);
     ctx.strokeStyle = snakecolor;
@@ -113,7 +112,7 @@ const drawModule = ((() => {
       snakeY++;
     }
 
-    if (checkCollision(snakeX, snakeY, snake)) {
+    if (snakeX == -1 || snakeX == w / snakeSize || snakeY == -1 || snakeY == h / snakeSize || checkCollision(snakeX, snakeY, snake)) {
 
       btn.removeAttribute('disabled', true);
       ctx.clearRect(0, 0, w, h);
@@ -123,29 +122,14 @@ const drawModule = ((() => {
       return;
     }
 
-    for(var i = 0, x = snake.length; i < x; i++){
-      if(snake[i].x < 0){
-        snake[i].x = snake[i].x + (canvas.width / 10);
-      }
-      if(snake[i].x == canvas.width / 10){
-        snake[i].x = snake[i].x - (canvas.width / 10);
-      }
-      if(snake[i].y < 0){
-        snake[i].y = snake[i].y + (canvas.height / 10);
-      }
-      if(snake[i].y == canvas.height / 10){
-        snake[i].y = snake[i].y - (canvas.height / 10);
-      }
-    }
-
     if (snakeX == food.x && snakeY == food.y) {
-      var tail = {
+      tail = {
         x: snakeX,
         y: snakeY
       };
       score++;
 
-      var needBoost = false;
+      needBoost = false;
       foodRemainForBoost--;
       if (!foodRemainForBoost) {
         foodRemainForBoost = foodForBoost;
@@ -158,7 +142,7 @@ const drawModule = ((() => {
 
       createEat();
     } else {
-      var tail = snake.pop();
+      tail = snake.pop();
       tail.x = snakeX;
       tail.y = snakeY;
     }
@@ -178,7 +162,7 @@ const drawModule = ((() => {
     }
   };
 
-  let reset = document.getElementById('btn-restart');
+  var reset = document.getElementById('btn-restart');
   reset.addEventListener("click", () => {
     btn.removeAttribute('disabled', true);
     ctx.clearRect(0, 0, w, h);
@@ -187,7 +171,7 @@ const drawModule = ((() => {
     restartText();
   });
 
-  let createEat = () => {
+  var createEat = () => {
     food = {
       x: Math.floor((Math.random() * foodX) + 1),
       y: Math.floor((Math.random() * foodY) + 1)

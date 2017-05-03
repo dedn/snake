@@ -1,5 +1,5 @@
 body {
-  background-color: #9acc99; }
+  background-color: #fff; }
 
 .game {
   max-width: 1024px;
@@ -10,7 +10,7 @@ body {
 
 button {
   float: right;
-  background-color: #9acc99;
+  background-color: #fff;
   color: #000;
   border: 1px solid #000;
   bottom: 0;
@@ -22,13 +22,12 @@ button {
   button:last-child {
     margin-right: 5px; }
   button:hover {
-    background-color: #94bf85; }
+    background-color: #fcf9f9; }
   button:disabled {
-    background-color: #94bf85; }
+    background-color: #d3cbcb; }
 
 .control {
-  width: 350px;
-  margin: 0 auto; }
+  width: 400px; }
   .control span {
     float: left;
     display: block;

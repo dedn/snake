@@ -1,13 +1,13 @@
-let gulp = require('gulp');
-let sass = require('gulp-sass');
-let livereload = require('gulp-livereload');
-let connect = require('gulp-connect');
-let autoprefixer = require('gulp-autoprefixer');
-let htmlLint = require('gulp-html-lint');
-let sassLint = require('gulp-sass-lint');
-let babel = require('gulp-babel');
-let jslint = require('gulp-jslint');
-let jshint = require('gulp-jshint');
+var gulp = require('gulp');
+var sass = require('gulp-sass');
+var livereload = require('gulp-livereload');
+var connect = require('gulp-connect');
+var autoprefixer = require('gulp-autoprefixer');
+var htmlLint = require('gulp-html-lint');
+var sassLint = require('gulp-sass-lint');
+var babel = require('gulp-babel');
+var jslint = require('gulp-jslint');
+var jshint = require('gulp-jshint');
 
 /**
  * Server connect

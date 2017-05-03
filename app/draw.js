@@ -1,17 +1,39 @@
+var width = 600;
+var height = 600;
+
 var canvas = document.getElementById('canvas');
+canvas.width = width;
+canvas.height = height;
 var ctx = canvas.getContext('2d');
 var snakeSize = 10;
-var w = 350;
-var h = 350;
+
+var w = width;
+var h = height;
 var score = 0;
-var snake = void 0;
-var food = void 0;
-var loop = 80;
+var snake;
+var food;
 var snakecolor = 'black';
-var snakeborder = '#9acc99';
-var eatcolor = '#9acc99';
+var snakeborder = '#fff';
+var eatcolor = '#fff';
 var eatborder = 'black';
 var text_color = 'black';
+var foodX = width / 11;
+var foodY = height / 11;
+var defaultLoopDelay = 80;
+var currentLoopDelay = defaultLoopDelay;
+var gameloop = null;
+var speedBoost = 10;
+var foodForBoost = 4;
+var foodRemainForBoost = foodForBoost;
+var needBoost;
+var tail;
+
+drawCanvasBoard = function drawCanvasBoard() {
+  ctx.strokeStyle = snakecolor;
+  ctx.strokeRect(0, 0, w, h);
+};
+
+drawCanvasBoard();
 
 var drawModule = function () {
 
@@ -31,22 +53,28 @@ var drawModule = function () {
 
   scoreText = function scoreText() {
     var score_text = 'Score:' + score;
+    ctx.font = "14px Arial";
     ctx.fillStyle = text_color;
-    ctx.fillText(score_text, 145, h - 5);
+    ctx.textAlign = "center";
+    ctx.fillText(score_text, width / 2, h - 10);
   };
 
   gameOver = function gameOver() {
-    var score_text = 'You lose, try again';
+    var lose_text = 'You lose, try again';
     ctx.fillStyle = text_color;
     ctx.font = "14px Arial";
-    ctx.fillText(score_text, 120, h - 200);
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(lose_text, width / 2, height / 2);
   };
 
   restartText = function restartText() {
-    var score_text = 'Will we start again? Are you sure?';
+    var restart_text = 'Will we start again? Are you sure?';
     ctx.fillStyle = text_color;
     ctx.font = "14px Arial";
-    ctx.fillText(score_text, 70, h - 200);
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(restart_text, width / 2, height / 2);
   };
 
   var drawSnake = function drawSnake() {
@@ -92,14 +120,26 @@ var drawModule = function () {
     }
 
     if (snakeX == food.x && snakeY == food.y) {
-      var tail = {
+      tail = {
         x: snakeX,
         y: snakeY
       };
       score++;
+
+      needBoost = false;
+      foodRemainForBoost--;
+      if (!foodRemainForBoost) {
+        foodRemainForBoost = foodForBoost;
+        currentLoopDelay -= speedBoost;
+        if (currentLoopDelay < 0) {
+          currentLoopDelay = 0;
+        }
+        needBoost = true;
+      }
+
       createEat();
     } else {
-      var tail = snake.pop();
+      tail = snake.pop();
       tail.x = snakeX;
       tail.y = snakeY;
     }
@@ -112,21 +152,26 @@ var drawModule = function () {
 
     eat(food.x, food.y);
     scoreText();
+
+    if (needBoost) {
+      clearInterval(gameloop);
+      gameloop = setInterval(paint, currentLoopDelay);
+    }
   };
 
   var reset = document.getElementById('btn-restart');
   reset.addEventListener("click", function () {
     btn.removeAttribute('disabled', true);
     ctx.clearRect(0, 0, w, h);
-    gameloop = clearInterval(gameloop);
+    clearInterval(gameloop);
     score = 0;
     restartText();
   });
 
   var createEat = function createEat() {
     food = {
-      x: Math.floor(Math.random() * 30 + 1),
-      y: Math.floor(Math.random() * 30 + 1)
+      x: Math.floor(Math.random() * foodX + 1),
+      y: Math.floor(Math.random() * foodY + 1)
     };
 
     for (var i = 0; i > snake.length; i++) {
@@ -134,8 +179,8 @@ var drawModule = function () {
       var snakeY = snake[i].y;
 
       if (food.x === snakeX && food.y === snakeY || food.y === snakeY && food.x === snakeX) {
-        food.x = Math.floor(Math.random() * 30 + 1);
-        food.y = Math.floor(Math.random() * 30 + 1);
+        food.x = Math.floor(Math.random() * foodX + 1);
+        food.y = Math.floor(Math.random() * foodY + 1);
       }
     }
   };
@@ -152,7 +197,8 @@ var drawModule = function () {
     direction = 'right';
     drawSnake();
     createEat();
-    gameloop = setInterval(paint, loop);
+    currentLoopDelay = defaultLoopDelay;
+    gameloop = setInterval(paint, currentLoopDelay);
   };
 
   return {

@@ -1,8 +1,8 @@
-$background: #9acc99;
+$background: #fff;
 $border: #000;
-$btn-background: #9acc99;
-$btn-background-hover: #94bf85;
-$btn-background-disabled: #94bf85;
+$btn-background: #fff;
+$btn-background-hover: #fcf9f9;
+$btn-background-disabled: #d3cbcb;
 $btn-text: #000;
 
 body {
@@ -44,8 +44,7 @@ button {
 }
 
 .control {
-  width: 350px;
-  margin: 0 auto;
+  width: 400px;
 
   span {
     float: left;
