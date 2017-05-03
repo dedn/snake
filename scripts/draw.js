@@ -35,16 +35,16 @@ drawCanvasBoard = () => {
 
 drawCanvasBoard();
 
-const drawModule = ((() => {
+var drawModule = ((() => {
 
-  const bodySnake = (x, y) => {
+  var bodySnake = (x, y) => {
     ctx.fillStyle = snakecolor;
     ctx.fillRect(x * snakeSize, y * snakeSize, snakeSize, snakeSize);
     ctx.strokeStyle = snakeborder;
     ctx.strokeRect(x * snakeSize, y * snakeSize, snakeSize, snakeSize);
   };
 
-  const eat = (x, y) => {
+  var eat = (x, y) => {
     ctx.fillStyle = eatcolor;
     ctx.fillRect(x * snakeSize, y * snakeSize, snakeSize, snakeSize);
     ctx.fillStyle = eatborder;
@@ -52,7 +52,7 @@ const drawModule = ((() => {
   };
 
   scoreText = () => {
-    const score_text = 'Score:' + score;
+    var score_text = 'Score:' + score;
     ctx.font = "14px Arial";
     ctx.fillStyle = text_color;
     ctx.textAlign = "center";
@@ -60,7 +60,7 @@ const drawModule = ((() => {
   };
 
   gameOver = () => {
-    const lose_text = 'You lose, try again';
+    var lose_text = 'You lose, try again';
     ctx.fillStyle = text_color;
     ctx.font = "14px Arial";
     ctx.textAlign = "center";
@@ -69,7 +69,7 @@ const drawModule = ((() => {
   };
 
   restartText = () => {
-    const restart_text = 'You started anew';
+    var restart_text = 'You started anew';
     ctx.fillStyle = text_color;
     ctx.font = "14px Arial";
     ctx.textAlign = "center";
@@ -97,8 +97,8 @@ const drawModule = ((() => {
 
     btn.setAttribute('disabled', true);
 
-    let snakeX = snake[0].x;
-    let snakeY = snake[0].y;
+    var snakeX = snake[0].x;
+    var snakeY = snake[0].y;
 
     if (direction == 'right') {
       snakeX++;
@@ -131,9 +131,11 @@ const drawModule = ((() => {
 
       needBoost = false;
       foodRemainForBoost--;
+
       if (!foodRemainForBoost) {
         foodRemainForBoost = foodForBoost;
         currentLoopDelay -= speedBoost;
+
         if (currentLoopDelay < 0) {
           currentLoopDelay = 0;
         }

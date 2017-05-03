@@ -128,9 +128,11 @@ var drawModule = function () {
 
       needBoost = false;
       foodRemainForBoost--;
+
       if (!foodRemainForBoost) {
         foodRemainForBoost = foodForBoost;
         currentLoopDelay -= speedBoost;
+
         if (currentLoopDelay < 0) {
           currentLoopDelay = 0;
         }
