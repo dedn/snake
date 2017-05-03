@@ -1,32 +1,7 @@
-var width = 600;
-var height = 600;
-
 var canvas = document.getElementById('canvas');
 canvas.width = width;
 canvas.height = height;
 var ctx = canvas.getContext('2d');
-var snakeSize = 10;
-
-var w = width;
-var h = height;
-var score = 0;
-var snake;
-var food;
-var snakecolor = 'black';
-var snakeborder = '#fff';
-var eatcolor = '#fff';
-var eatborder = 'black';
-var text_color = 'black';
-var foodX = width / 11;
-var foodY = height / 11;
-var defaultLoopDelay = 80;
-var currentLoopDelay = defaultLoopDelay;
-var gameloop = null;
-var speedBoost = 10;
-var foodForBoost = 4;
-var foodRemainForBoost = foodForBoost;
-var needBoost;
-var tail;
 
 drawCanvasBoard = function drawCanvasBoard() {
   ctx.strokeStyle = snakecolor;
