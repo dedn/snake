@@ -3,12 +3,10 @@ canvas.width = width;
 canvas.height = height;
 var ctx = canvas.getContext('2d');
 
-drawCanvasBoard = function drawCanvasBoard() {
+(function () {
   ctx.strokeStyle = snakecolor;
   ctx.strokeRect(0, 0, w, h);
-};
-
-drawCanvasBoard();
+})();
 
 var drawModule = function () {
 
