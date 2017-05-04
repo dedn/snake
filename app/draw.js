@@ -7,12 +7,16 @@ var fieldWidth = width / snakeSize;
 var fieldHeight = height / snakeSize;
 
 /**
- * Borders of the canvas board
+ * draw of the canvas board
  */
-(function () {
+
+var canvasBoard = function canvasBoard() {
+  ctx.fillStyle = snakeborder;
+  ctx.fillRect(0, 0, w, h);
   ctx.strokeStyle = snakecolor;
   ctx.strokeRect(0, 0, w, h);
-})();
+};
+canvasBoard();
 
 var drawModule = function () {
 
@@ -30,7 +34,7 @@ var drawModule = function () {
     ctx.fillRect(x * snakeSize + 1, y * snakeSize + 1, snakeSize - 2, snakeSize - 2);
   };
 
-  scoreText = function scoreText() {
+  var scoreText = function scoreText() {
     var score_text = 'Score:' + score;
     ctx.font = "14px Arial";
     ctx.fillStyle = text_color;
@@ -38,7 +42,7 @@ var drawModule = function () {
     ctx.fillText(score_text, width / 2, h - 10);
   };
 
-  gameOver = function gameOver() {
+  var gameOver = function gameOver() {
     var lose_text = 'You lose, try again';
     ctx.fillStyle = text_color;
     ctx.font = "14px Arial";
@@ -47,7 +51,7 @@ var drawModule = function () {
     ctx.fillText(lose_text, width / 2, height / 2);
   };
 
-  restartText = function restartText() {
+  var restartText = function restartText() {
     var restart_text = 'You started anew';
     ctx.fillStyle = text_color;
     ctx.font = "14px Arial";
@@ -134,10 +138,7 @@ var drawModule = function () {
   };
 
   var paint = function paint() {
-    ctx.fillStyle = snakeborder;
-    ctx.fillRect(0, 0, w, h);
-    ctx.strokeStyle = snakecolor;
-    ctx.strokeRect(0, 0, w, h);
+    canvasBoard();
 
     btn.setAttribute('disabled', true);
 
