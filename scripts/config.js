@@ -19,3 +19,4 @@ var gameloop = null;
 var speedBoost = 10;
 var foodForBoost = 4;
 var foodRemainForBoost = foodForBoost;
+

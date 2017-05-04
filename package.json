@@ -19,6 +19,7 @@
     "gulp-sass-lint": "^1.3.2",
     "javascript-precommit": "0.0.8",
     "jshint": "^2.9.4",
-    "jshint-stylish": "^2.2.1"
+    "jshint-stylish": "^2.2.1",
+    "gulp-jslint":"^1.0.10"
   }
 }

@@ -3,10 +3,30 @@ canvas.width = width;
 canvas.height = height;
 const ctx = canvas.getContext('2d');
 
+var fieldWidth = canvas.width / snakeSize;
+var fieldHeight = canvas.height / snakeSize;
+
 ((() => {
   ctx.strokeStyle = snakecolor;
   ctx.strokeRect(0, 0, w, h);
 })());
+
+var throughWall = (i) => {
+    if (snake[i].x < 0) {
+        snake[i].x = fieldWidth - 1;
+    }
+    else if (snake[i].x > fieldWidth - 1) {
+        snake[i].x = 0;
+    }
+    if (snake[i].y < 0) {
+        snake[i].y = fieldHeight - 1;
+    }
+    else if (snake[i].y > fieldHeight - 1) {
+        snake[i].y = 0;
+    }
+};
+
+
 
 var drawModule = ((() => {
 
@@ -85,7 +105,7 @@ var drawModule = ((() => {
       snakeY++;
     }
 
-    if (snakeX == -1 || snakeX == w / snakeSize || snakeY == -1 || snakeY == h / snakeSize || checkCollision(snakeX, snakeY, snake)) {
+    if (checkCollision(snakeX, snakeY, snake)) {
 
       btn.removeAttribute('disabled', true);
       ctx.clearRect(0, 0, w, h);
@@ -124,7 +144,10 @@ var drawModule = ((() => {
 
     snake.unshift(tail);
 
+
+
     for (let i = 0; i < snake.length; i++) {
+        throughWall(i);
       bodySnake(snake[i].x, snake[i].y);
     }
 
