@@ -36,29 +36,29 @@ var drawModule = ((() => {
   };
 
   var scoreText = () => {
-    var score_text = 'Score:' + score;
+    var scoreText = 'Score:' + score;
     ctx.font = "14px Arial";
-    ctx.fillStyle = text_color;
+    ctx.fillStyle = textColor;
     ctx.textAlign = "center";
-    ctx.fillText(score_text, width / 2, h - 10);
+    ctx.fillText(scoreText, width / 2, h - 10);
   };
 
   var gameOver = () => {
-    var lose_text = 'You lose, try again';
-    ctx.fillStyle = text_color;
+    var loseText = 'You lose, try again';
+    ctx.fillStyle = textColor;
     ctx.font = "14px Arial";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.fillText(lose_text, width / 2, height / 2);
+    ctx.fillText(loseText, width / 2, height / 2);
   };
 
   var restartText = () => {
-    var restart_text = 'You started anew';
-    ctx.fillStyle = text_color;
+    var restartText = 'You started anew';
+    ctx.fillStyle = textColor;
     ctx.font = "14px Arial";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.fillText(restart_text, width / 2, height / 2);
+    ctx.fillText(restartText, width / 2, height / 2);
   };
 
   var reset = document.getElementById('btn-restart');
