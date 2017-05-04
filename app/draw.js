@@ -3,26 +3,16 @@ canvas.width = width;
 canvas.height = height;
 var ctx = canvas.getContext('2d');
 
-var fieldWidth = canvas.width / snakeSize;
-var fieldHeight = canvas.height / snakeSize;
+var fieldWidth = width / snakeSize;
+var fieldHeight = height / snakeSize;
 
+/**
+ * Borders of the canvas board
+ */
 (function () {
   ctx.strokeStyle = snakecolor;
   ctx.strokeRect(0, 0, w, h);
 })();
-
-var throughWall = function throughWall(i) {
-  if (snake[i].x < 0) {
-    snake[i].x = fieldWidth - 1;
-  } else if (snake[i].x > fieldWidth - 1) {
-    snake[i].x = 0;
-  }
-  if (snake[i].y < 0) {
-    snake[i].y = fieldHeight - 1;
-  } else if (snake[i].y > fieldHeight - 1) {
-    snake[i].y = 0;
-  }
-};
 
 var drawModule = function () {
 
@@ -66,6 +56,18 @@ var drawModule = function () {
     ctx.fillText(restart_text, width / 2, height / 2);
   };
 
+  var reset = document.getElementById('btn-restart');
+  reset.addEventListener("click", function () {
+    btn.removeAttribute('disabled', true);
+    ctx.clearRect(0, 0, w, h);
+    clearInterval(gameloop);
+    score = 0;
+    restartText();
+  });
+
+  /**
+   * Drawing a snake
+   */
   var drawSnake = function drawSnake() {
     var length = 1;
     snake = [];
@@ -75,6 +77,60 @@ var drawModule = function () {
         y: 0
       });
     }
+  };
+
+  /**
+   * ThroughWall
+   */
+  var throughWall = function throughWall(i) {
+    if (snake[i].x < 0) {
+      snake[i].x = fieldWidth - 1;
+    } else if (snake[i].x > fieldWidth - 1) {
+      snake[i].x = 0;
+    }
+    if (snake[i].y < 0) {
+      snake[i].y = fieldHeight - 1;
+    } else if (snake[i].y > fieldHeight - 1) {
+      snake[i].y = 0;
+    }
+  };
+
+  /**
+   * Food generator
+   */
+  var createEat = function createEat() {
+    food = {
+      x: Math.floor(Math.random() * foodX + 1),
+      y: Math.floor(Math.random() * foodY + 1)
+    };
+
+    for (var i = 0; i > snake.length; i++) {
+      var snakeX = snake[i].x;
+      var snakeY = snake[i].y;
+
+      if (food.x === snakeX && food.y === snakeY || food.y === snakeY && food.x === snakeX) {
+        food.x = Math.floor(Math.random() * foodX + 1);
+        food.y = Math.floor(Math.random() * foodY + 1);
+      }
+    }
+  };
+
+  /**
+   * The collision handler
+   */
+  var checkCollision = function checkCollision(x, y, array) {
+    for (var i = 0; i < array.length; i++) {
+      if (array[i].x === x && array[i].y === y) return true;
+    }
+    return false;
+  };
+
+  init = function init() {
+    direction = 'right';
+    drawSnake();
+    createEat();
+    currentLoopDelay = defaultLoopDelay;
+    gameloop = setInterval(paint, currentLoopDelay);
   };
 
   var paint = function paint() {
@@ -98,6 +154,10 @@ var drawModule = function () {
       snakeY++;
     }
 
+    /**
+     *
+     Launch the collision handler
+     */
     if (checkCollision(snakeX, snakeY, snake)) {
 
       btn.removeAttribute('disabled', true);
@@ -115,6 +175,9 @@ var drawModule = function () {
       };
       score++;
 
+      /**
+       * Speed booster
+       */
       needBoost = false;
       foodRemainForBoost--;
 
@@ -149,48 +212,6 @@ var drawModule = function () {
       clearInterval(gameloop);
       gameloop = setInterval(paint, currentLoopDelay);
     }
-  };
-
-  var reset = document.getElementById('btn-restart');
-  reset.addEventListener("click", function () {
-    btn.removeAttribute('disabled', true);
-    ctx.clearRect(0, 0, w, h);
-    clearInterval(gameloop);
-    score = 0;
-    restartText();
-  });
-
-  var createEat = function createEat() {
-    food = {
-      x: Math.floor(Math.random() * foodX + 1),
-      y: Math.floor(Math.random() * foodY + 1)
-    };
-
-    for (var i = 0; i > snake.length; i++) {
-      var snakeX = snake[i].x;
-      var snakeY = snake[i].y;
-
-      if (food.x === snakeX && food.y === snakeY || food.y === snakeY && food.x === snakeX) {
-        food.x = Math.floor(Math.random() * foodX + 1);
-        food.y = Math.floor(Math.random() * foodY + 1);
-      }
-    }
-  };
-
-  var checkCollision = function checkCollision(x, y, array) {
-    for (var i = 0; i < array.length; i++) {
-      if (array[i].x === x && array[i].y === y) return true;
-    }
-    return false;
-  };
-
-  init = function init() {
-
-    direction = 'right';
-    drawSnake();
-    createEat();
-    currentLoopDelay = defaultLoopDelay;
-    gameloop = setInterval(paint, currentLoopDelay);
   };
 
   return {

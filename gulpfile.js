@@ -38,7 +38,7 @@ gulp.task('css', () => {
  * JavaScript
  */
 gulp.task('js', () => {
-  gulp.src('scripts/*js')
+  gulp.src('develop/*js')
     .pipe(connect.reload());
 });
 
@@ -54,7 +54,7 @@ gulp.task('watch', () => {
   gulp.watch(['css/*css'], ['css']);
   gulp.watch(['css/*scss'], ['css']);
   gulp.watch(['*html'], ['html']);
-  gulp.watch(['scripts/*js'], ['js']);
+  gulp.watch(['develop/*js'], ['js']);
 });
 
 const sassLintOptions = {
@@ -99,7 +99,7 @@ gulp.task('html-lint', () => {
  * Lint for JS files.
  */
 gulp.task('jslint', () => {
-  return gulp.src('scripts/*.js')
+  return gulp.src('develop/*.js')
     .pipe(jshint({
       "esversion": 6
     }))
@@ -110,7 +110,7 @@ gulp.task('jslint', () => {
  * Babel
  */
 gulp.task('babel', () => {
-  return gulp.src('scripts/*.js')
+  return gulp.src('develop/*.js')
     .pipe(babel({
       presets: [
         ['es2015', {modules: false}]

@@ -3,29 +3,17 @@ canvas.width = width;
 canvas.height = height;
 const ctx = canvas.getContext('2d');
 
-var fieldWidth = canvas.width / snakeSize;
-var fieldHeight = canvas.height / snakeSize;
+var fieldWidth = width / snakeSize;
+var fieldHeight = height / snakeSize;
 
+
+/**
+ * Borders of the canvas board
+ */
 ((() => {
   ctx.strokeStyle = snakecolor;
   ctx.strokeRect(0, 0, w, h);
 })());
-
-var throughWall = (i) => {
-    if (snake[i].x < 0) {
-        snake[i].x = fieldWidth - 1;
-    }
-    else if (snake[i].x > fieldWidth - 1) {
-        snake[i].x = 0;
-    }
-    if (snake[i].y < 0) {
-        snake[i].y = fieldHeight - 1;
-    }
-    else if (snake[i].y > fieldHeight - 1) {
-        snake[i].y = 0;
-    }
-};
-
 
 
 var drawModule = ((() => {
@@ -70,6 +58,18 @@ var drawModule = ((() => {
     ctx.fillText(restart_text, width / 2, height / 2);
   };
 
+  var reset = document.getElementById('btn-restart');
+  reset.addEventListener("click", () => {
+    btn.removeAttribute('disabled', true);
+    ctx.clearRect(0, 0, w, h);
+    clearInterval(gameloop);
+    score = 0;
+    restartText();
+  });
+
+  /**
+   * Drawing a snake
+   */
   var drawSnake = () => {
     var length = 1;
     snake = [];
@@ -81,6 +81,64 @@ var drawModule = ((() => {
         });
     }
   };
+
+  /**
+   * ThroughWall
+   */
+  var throughWall = (i) => {
+    if (snake[i].x < 0) {
+      snake[i].x = fieldWidth - 1;
+    }
+    else if (snake[i].x > fieldWidth - 1) {
+      snake[i].x = 0;
+    }
+    if (snake[i].y < 0) {
+      snake[i].y = fieldHeight - 1;
+    }
+    else if (snake[i].y > fieldHeight - 1) {
+      snake[i].y = 0;
+    }
+  };
+
+  /**
+   * Food generator
+   */
+  var createEat = () => {
+    food = {
+      x: Math.floor((Math.random() * foodX) + 1),
+      y: Math.floor((Math.random() * foodY) + 1)
+    };
+
+    for (let i = 0; i > snake.length; i++) {
+      const snakeX = snake[i].x;
+      const snakeY = snake[i].y;
+
+      if (food.x === snakeX && food.y === snakeY || food.y === snakeY && food.x === snakeX) {
+        food.x = Math.floor((Math.random() * foodX) + 1);
+        food.y = Math.floor((Math.random() * foodY) + 1);
+      }
+    }
+  };
+
+  /**
+   * The collision handler
+   */
+  var checkCollision = (x, y, array) => {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i].x === x && array[i].y === y)
+        return true;
+    }
+    return false;
+  };
+
+  init = () => {
+    direction = 'right';
+    drawSnake();
+    createEat();
+    currentLoopDelay = defaultLoopDelay;
+    gameloop = setInterval(paint, currentLoopDelay);
+  };
+
 
   var paint = () => {
     ctx.fillStyle = snakeborder;
@@ -105,6 +163,10 @@ var drawModule = ((() => {
       snakeY++;
     }
 
+    /**
+     *
+     Launch the collision handler
+     */
     if (checkCollision(snakeX, snakeY, snake)) {
 
       btn.removeAttribute('disabled', true);
@@ -122,6 +184,9 @@ var drawModule = ((() => {
       };
       score++;
 
+      /**
+       * Speed booster
+       */
       needBoost = false;
       foodRemainForBoost--;
 
@@ -144,10 +209,8 @@ var drawModule = ((() => {
 
     snake.unshift(tail);
 
-
-
     for (let i = 0; i < snake.length; i++) {
-        throughWall(i);
+      throughWall(i);
       bodySnake(snake[i].x, snake[i].y);
     }
 
@@ -158,50 +221,6 @@ var drawModule = ((() => {
       clearInterval(gameloop);
       gameloop = setInterval(paint, currentLoopDelay);
     }
-  };
-
-  var reset = document.getElementById('btn-restart');
-  reset.addEventListener("click", () => {
-    btn.removeAttribute('disabled', true);
-    ctx.clearRect(0, 0, w, h);
-    clearInterval(gameloop);
-    score = 0;
-    restartText();
-  });
-
-  var createEat = () => {
-    food = {
-      x: Math.floor((Math.random() * foodX) + 1),
-      y: Math.floor((Math.random() * foodY) + 1)
-    };
-
-    for (let i = 0; i > snake.length; i++) {
-      const snakeX = snake[i].x;
-      const snakeY = snake[i].y;
-
-      if (food.x === snakeX && food.y === snakeY || food.y === snakeY && food.x === snakeX) {
-        food.x = Math.floor((Math.random() * foodX) + 1);
-        food.y = Math.floor((Math.random() * foodY) + 1);
-      }
-    }
-  };
-
-  var checkCollision = (x, y, array) => {
-    for (let i = 0; i < array.length; i++) {
-      if (array[i].x === x && array[i].y === y)
-        return true;
-    }
-    return false;
-  };
-
-  init = () => {
-
-    direction = 'right';
-    drawSnake();
-    createEat();
-    currentLoopDelay = defaultLoopDelay;
-    gameloop = setInterval(paint, currentLoopDelay);
-
   };
 
   return {
