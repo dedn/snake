@@ -12,7 +12,7 @@ Link demo http://dedn.github.io/snakegame/
     develop /   :folder for development, use es6                                
                          
  ## running the project for development
- Go to folder examplebem or examplecss. Set npm dependencies, to start the project, enter the 'gulp' command, go to http://localhost:8000
+ Go to folder snake. Set npm dependencies, to start the project, enter the 'gulp' command, go to http://localhost:8000
  
  Enter 'gulp lint' for verification with lintjs and  sasslint
  
